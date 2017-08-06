@@ -13,6 +13,11 @@ class Product extends Model
     	return $this->belongsToMany(Attribute::class, 'product_attributes')->withPivot('value');
     }
 
+    public function attributes_relation()
+    {
+    	return $this->hasMany(ProductAttribute::class);
+    }
+
     public function category()
     {
     	return $this->belongTo(Category::class);
