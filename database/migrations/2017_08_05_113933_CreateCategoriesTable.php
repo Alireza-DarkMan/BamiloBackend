@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+use Kalnoy\Nestedset\NestedSet;
+
 class CreateCategoriesTable extends Migration
 {
     /**
@@ -15,8 +17,7 @@ class CreateCategoriesTable extends Migration
     {
         Schema::create('categories', function(Blueprint $table){
             $table->increments('id')->unsigned();
-            $table->integer('parent_id')->unsigned()->nullable();
-            $table->foreign('parent_id')->references('id')->on('categories')->onDelete('cascade');
+            NestedSet::columns($table);
             $table->string('title')->unique();
             $table->text('desc')->nullable();
             $table->timestamps();

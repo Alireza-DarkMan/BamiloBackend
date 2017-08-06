@@ -10,7 +10,7 @@ class AttributesController extends Controller
 {
     public function index(Category $category)
     {
-    	$attributes = $category->attributes()->with('products')->get();
+	$attributes = $category->attributes;
 
     	return response()->json($attributes);
     }

@@ -16,9 +16,11 @@ class ProductsController extends Controller
     	return response()->json($products);
     }
 
-    public function index(Category $category)
+    public function index($category)
     {
-    	$products = $category->products;
+    	$categories = Category::descendantsAndSelf($category)->pluck('id');
+
+    	$products = Product::whereIn('category_id', $categories)->get();
 
     	return response()->json($products);
     }

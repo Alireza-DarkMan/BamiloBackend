@@ -11,8 +11,15 @@ class CategoriesController extends Controller
 {
     public function index()
     {
-    	$categories = Category::with(['childs', 'attributes'])->where('parent_id', null)->get();
+    	$categories = Category::get()->toTree();
 
+    	return response()->json($categories);
+    }
+
+    public function show($category)
+    {
+    	$categories = Category::descendantsAndSelf($category)->toTree();
+    	
     	return response()->json($categories);
     }
 
